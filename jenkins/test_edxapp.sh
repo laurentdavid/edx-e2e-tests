@@ -16,6 +16,7 @@
 # which are printed to make debugging easier
 
 set -e
+set -x
 
 # Create the virtualenv and install requirements
 mkdir -p venv
@@ -26,8 +27,11 @@ pip install -r requirements.txt
 # Install edxapp page objects
 # This operation is not safe to run concurrently,
 # so ensure the jobs use unique directories
-mkdir -p /mnt/tmp/${JOB_NAME}
-fab install_pages:/mnt/tmp/${JOB_NAME}
+# Jenkins will include an equals sign in the job name for multiconfig
+# jobs, which Fabric interprets as kwarg assignment, so we replace equals signs
+REPO_TEMPDIR=`echo "/mnt/tmp/${JOB_NAME}" | sed "s/=/_/g"`
+mkdir -p $REPO_TEMPDIR
+fab install_pages:$REPO_TEMPDIR
 
 # Debug information
 echo "SELENIUM_BROWSER=$SELENIUM_BROWSER"
