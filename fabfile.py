@@ -3,7 +3,6 @@ Commands for setting up test environments and running tests.
 """
 
 import os
-import shutil
 from ConfigParser import SafeConfigParser
 from fabric.api import task, local, lcd
 from textwrap import dedent
@@ -70,7 +69,7 @@ def test_lms(test_spec=None):
     """
     config = _read_config('lms')
     _abort_if_not_available(config)
-    _run_tests(_test_path('test_lms', test_spec), config)
+    _run_tests(_test_path('tests/lms', test_spec), config)
 
 
 @task
@@ -81,14 +80,13 @@ def test_studio(test_spec=None):
     """
     config = _read_config('studio')
     _abort_if_not_available(config)
-    _run_tests(_test_path('test_studio', test_spec), config)
+    _run_tests(_test_path('tests/studio', test_spec), config)
 
 
 def _available(url):
     """
     Return a boolean indicating whether `url` is available.
     """
-
     try:
         resp = requests.get(url)
     except requests.exceptions.ConnectionError:
