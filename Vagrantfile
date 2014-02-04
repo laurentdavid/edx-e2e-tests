@@ -17,19 +17,12 @@ $script = <<SCRIPT
 export WORKON_HOME=/home/vagrant/.virtualenvs
 mkdir -p /home/vagrant/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
-
-if [ ! -d /home/vagrant/.virtualenvs/e2e ]; then
-    virtualenv /home/vagrant/.virtualenvs/e2e
-else
-    source /home/vagrant/.virtualenvs/e2e/bin/activate
-fi
+source /home/vagrant/.virtualenvs/e2e/bin/activate
 INIT
 
     # Install Python requirements and page objects
-    source /home/vagrant/.bash_profile
-    cd /home/vagrant/edx-e2e-tests
-    pip install -r requirements/base.txt
-    fab install_pages
+    sudo -u vagrant virtualenv /home/vagrant/.virtualenvs/e2e
+    sudo -u vagrant sh -c ". /home/vagrant/.virtualenvs/e2e/bin/activate && pip install -r /home/vagrant/edx-e2e-tests/requirements/base.txt && fab -f /home/vagrant/edx-e2e-tests/fabfile.py install_pages"
 
 SCRIPT
 
