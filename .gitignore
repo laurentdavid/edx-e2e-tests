@@ -40,3 +40,4 @@ nosetests.xml
 
 # Repo we cloned for page objects
 lib/edx-platform
+src
