@@ -18,20 +18,18 @@
 set -e
 set -x
 
+# Clean up the repo
+# We ignore repos that we've cloned to install page objects (in .gitignore)
+# so that we don't have to download them again.
+git clean -xfd
+
 # Create the virtualenv and install requirements
 mkdir -p venv
 virtualenv venv
 . venv/bin/activate
-pip install -r requirements.txt
 
-# Install edxapp page objects
-# This operation is not safe to run concurrently,
-# so ensure the jobs use unique directories
-# Jenkins will include an equals sign in the job name for multiconfig
-# jobs, which Fabric interprets as kwarg assignment, so we replace equals signs
-REPO_TEMPDIR=`echo "/mnt/tmp/${JOB_NAME}" | sed "s/=/_/g"`
-mkdir -p $REPO_TEMPDIR
-fab install_pages:$REPO_TEMPDIR
+pip install -r requirements/base.txt
+fab install_pages
 
 # Debug information
 echo "SELENIUM_BROWSER=$SELENIUM_BROWSER"

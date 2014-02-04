@@ -37,3 +37,6 @@ nosetests.xml
 
 # Vagrant
 .vagrant
+
+# Repo we cloned for page objects
+lib/edx-platform
