@@ -11,7 +11,6 @@ UI-level tests for edX applications:
 - ``pages``: PageObjects for interacting with pages under test.
 - ``test_lms``: Selenium tests for the Learning Management System (LMS).
 - ``test_studio``: Selenium tests for Studio.
-- ``test_mktg``: Selenium tests for the edX marketing site.
 
 __ https://code.google.com/p/selenium/wiki/PageObjects
 
@@ -77,7 +76,6 @@ app or the marketing site:
 
     fab test_lms
     fab test_studio
-    fab test_mktg
 
 
 The commands also accept nose-style specifiers for test case or module:

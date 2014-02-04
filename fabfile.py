@@ -45,15 +45,6 @@ def config_studio(**kwargs):
 
 
 @task
-def config_mktg(**kwargs):
-    """
-    Ensure that mktg tests are configured with the keys/values in kwargs (idempotent).
-    This is useful for generating config files on the fly (e.g. in Jenkins).
-    """
-    _set_config('mktg', kwargs)
-
-
-@task
 def install_pages():
     """
     Install page objects from external repos.
@@ -67,7 +58,6 @@ def test():
     """
     Run all tests.
     """
-    test_mktg()
     test_lms()
     test_studio()
 
@@ -92,17 +82,6 @@ def test_studio(test_spec=None):
     config = _read_config('studio')
     _abort_if_not_available(config)
     _run_tests(_test_path('test_studio', test_spec), config)
-
-
-@task
-def test_mktg(test_spec=None):
-    """
-    Execute the E2E test suite on an instance of the website administered by marketing.
-    `test_spec` is a nose-style test specifier (e.g. "test_module.py:TestCase.test_method")
-    """
-    config = _read_config('mktg')
-    _abort_if_not_available(config)
-    _run_tests(_test_path('test_mktg', test_spec), config)
 
 
 def _available(url):
