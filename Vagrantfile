@@ -6,6 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 $script = <<SCRIPT
 
+
     # Install system requirements
     apt-get update -y
     apt-get install -y git python2.7 python-pip python2.7-dev firefox dbus-x11 vim
@@ -22,7 +23,7 @@ INIT
 
     # Install Python requirements and page objects
     sudo -u vagrant virtualenv /home/vagrant/.virtualenvs/e2e
-    sudo -u vagrant sh -c ". /home/vagrant/.virtualenvs/e2e/bin/activate && pip install -r /home/vagrant/edx-e2e-tests/requirements/base.txt && fab -f /home/vagrant/edx-e2e-tests/fabfile.py install_pages"
+    sudo -u vagrant PYTHONUNBUFFERED=1 sh -c ". /home/vagrant/.virtualenvs/e2e/bin/activate && pip install -r /home/vagrant/edx-e2e-tests/requirements/base.txt && fab -f /home/vagrant/edx-e2e-tests/fabfile.py install_pages"
 
 SCRIPT
 
