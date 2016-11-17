@@ -51,3 +51,11 @@ class SettingsPageExtended(SettingsPage):
         click_css_with_animation_enabled(
             self, '.button.action-cancel', 0, False
         )
+
+    def click_other_settings_links(self, link):
+        """
+        Clicks links under other course settings as per link provided
+        """
+        self.q(
+            css='.nav-related a[' + link + ']'
+        ).click()
