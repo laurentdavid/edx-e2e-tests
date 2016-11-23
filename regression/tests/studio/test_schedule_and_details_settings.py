@@ -126,7 +126,7 @@ class ScheduleAndDetailsLinks(WebAppTest):
         """
         Verifies that user can click and navigate to Grading
         """
-        link = 'href="/settings/grading/course-v1:ArbiRaees+AR-1000+fall"'
+        link = 0
         grading_page = GradingPageExtended(
             self.browser,
             self.course_info['org'],
@@ -139,7 +139,7 @@ class ScheduleAndDetailsLinks(WebAppTest):
         """
         Verifies that user can click and navigate to Course Team
         """
-        link = 'href="/course_team/course-v1:ArbiRaees+AR-1000+fall"'
+        link = 1
         course_team_page = UsersPageMixin(self.browser)
         self.settings_page.click_other_settings_links(link)
         course_team_page.wait_for_page()
@@ -148,7 +148,7 @@ class ScheduleAndDetailsLinks(WebAppTest):
         """
         Verifies that user can click and navigate to Group Configuration
         """
-        link = 'href="/group_configurations/course-v1:ArbiRaees+AR-1000+fall"'
+        link = 2
         group_configuration = GroupConfigurationsPage(
             self.browser,
             self.course_info['org'],
@@ -161,7 +161,7 @@ class ScheduleAndDetailsLinks(WebAppTest):
         """
         Verifies that user can click and navigate to Advanced Settings
         """
-        link = 'href="/settings/advanced/course-v1:ArbiRaees+AR-1000+fall"'
+        link = 3
         advanced_settings = AdvancedSettingsPage(
             self.browser,
             self.course_info['org'],

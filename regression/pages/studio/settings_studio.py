@@ -55,7 +55,6 @@ class SettingsPageExtended(SettingsPage):
     def click_other_settings_links(self, link):
         """
         Clicks links under other course settings as per link provided
+        link is the index that needs to be clicked
         """
-        self.q(
-            css='.nav-related a[' + link + ']'
-        ).click()
+        self.q(css='.nav-related a').results[link].click()
