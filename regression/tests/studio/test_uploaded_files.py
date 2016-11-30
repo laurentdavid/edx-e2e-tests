@@ -82,9 +82,51 @@ class UploadedFileTest(StudioBaseTestClass):
         Then file should be deleted and no longer available.
         """
         self.upload_files()
-        # Index of files to be deleted.
-        file_index_to_delete = [0, 1]
         # Delete the files.
-        self.asset_page.delete_file(file_index_to_delete)
+        self.asset_page.delete_file()
         # Assert files has been deleted.
         self.assertNotIn(self.file_names, self.asset_page.get_file_names())
+
+
+class UploadedFilePaginationTest(StudioBaseTestClass):
+    """
+    Test uploaded files.
+    """
+    def setUp(self):
+        super(UploadedFilePaginationTest, self).setUp()
+        self.login_page = StudioLogin(self.browser)
+        LoginHelper.login(self.login_page)
+        self.course_info = get_course_info()
+
+        self.asset_page = AssetIndexPageExtended(
+            self.browser,
+            self.course_info['org'],
+            self.course_info['number'],
+            self.course_info['run']
+        )
+        self.asset_page.visit()
+        self.file_names = [
+            '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png',
+            '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png',
+            '15.png', '16.png', '17.png', '18.png', '19.png', '20.png',
+            '21.png', '22.png', '23.png', '24.png', '25.png', '26.png',
+            '27.png', '28.png', '29.png', '30.png', '31.png', '32.png',
+            '33.png', '34.png', '35.png', '36.png', '37.png', '38.png',
+            '39.png', '40.png', '41.png', '42.png', '43.png', '44.png',
+            '45.png', '46.png', '47.png', '48.png', '49.png', '50.png',
+            '51.png'
+        ]
+
+    def test_pagination(self):
+        """
+        Verifies that user can successfully navigate between multiple pages
+        """
+        # Open file upload prompt.
+        self.asset_page.open_upload_file_prompt()
+        # Upload the files.
+        upload_new_file(self.asset_page, self.file_names)
+        # Assert that pages are now 2 in total.
+        self.assertEqual('1', self.asset_page.get_page_count())
+        self.asset_page.click_next_page_link()
+        # Assert that pages are now 2 in total.
+        self.assertEqual('2', self.asset_page.get_page_count())

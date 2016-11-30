@@ -9,7 +9,6 @@ from edxapp_acceptance.pages.common.utils import wait_for_notification
 from regression.pages.studio.utils import (
     get_course_key,
     click_css_with_animation_enabled,
-    confirm_prompt_with_animation_enabled
 )
 from regression.pages.studio import BASE_URL
 
@@ -53,23 +52,17 @@ class AssetIndexPageExtended(AssetIndexPage):
         """
         return len(self.q(css='#asset-table-body tr'))
 
-    def delete_file(self, file_indexes):
+    def delete_file(self):
         """
-        Delete the file(s)
-        Arguments:
-            file_indexes (list): list of indexes of file(s)
-                we want to delete.
+        Deletes the file till delete asset button is found on page
         """
-        more_then_one_file = False
-        for index in file_indexes:
-            if more_then_one_file and index != 0:
-                index = index - 1
-            click_css_with_animation_enabled(
-                self, '.remove-asset-button.action-button', index, False)
-            confirm_prompt_with_animation_enabled(
-                self, require_notification=False)
+        delete_button = '.remove-asset-button.action-button'
+        while self.q(css=delete_button).present:
+            self.q(css=delete_button).first.click()
+            # Click initiates an ajax call
+            self.wait_for_ajax()
+            self.q(css='button.action-primary').click()
             self.wait_for_asset_delete_notification()
-            more_then_one_file = True
 
     def wait_for_asset_delete_notification(self):
         """
@@ -111,3 +104,17 @@ class AssetIndexPageExtended(AssetIndexPage):
         Sort the assets
         """
         click_css_with_animation_enabled(self, '.column-sort-link', 0, False)
+
+    def get_page_count(self):
+        """
+        Returns: Current page count in integers
+        """
+        return self.q(css='.current-page').text[0]
+
+    def click_next_page_link(self):
+        """
+        Clicks next page link
+        """
+        self.q(css='.next-page-link').first.click()
+        # Click initiates an ajax call
+        self.wait_for_ajax()

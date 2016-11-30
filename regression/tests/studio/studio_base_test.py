@@ -94,5 +94,4 @@ class StudioBaseTestClass(WebAppTest):
         textbook_page.delete_all_textbooks()
 
         asset_page.visit()
-        asset_count = asset_page.get_files_count()
-        asset_page.delete_file(list(range(asset_count)))
+        asset_page.delete_file()
