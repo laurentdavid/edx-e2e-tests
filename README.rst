@@ -90,6 +90,11 @@ To run the tests locally, following environmental variables needs to be changed 
     ==> USER_LOGIN_EMAIL
     ==> USER_LOGIN_PASSWORD
 
+You can alternatively complete the localenv.sh file (see sample local_env.sh.sample) and make sure
+it is run everytime we start the virtual environment by doing the following:
+
+.. code:: bash
+    ln -s /home/vagrant/edx-e2e-tests/local_env.sh ~/.virtualenvs/e2e/bin/postactivate
 
 To run all the tests:
 
