@@ -65,8 +65,6 @@ def configure_e2e_tests_pre_reqs():
 
     # Make sure environment variables are set.
     env_vars = [
-        'BASIC_AUTH_USER',
-        'BASIC_AUTH_PASSWORD',
         'USER_LOGIN_EMAIL',
         'USER_LOGIN_PASSWORD',
         'COURSE_ORG',
